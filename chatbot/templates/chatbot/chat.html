@@ -1,5 +1,9 @@
-{% extends 'base.html' %} {% block title %}Chatbot Interface{% endblock %} {%
-block content %}
+{% extends 'base.html' %} 
+
+{% block title %}Chatbot Interface{% endblock %} 
+
+{%block content %}
+
 <h1 style="text-align: center">Chatbot</h1>
 
 <div
@@ -30,7 +34,7 @@ block content %}
       outline: none;
     "
   />
-  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+  {% csrf_token %}
   <button
     type="submit"
     style="
@@ -99,7 +103,7 @@ block content %}
         type: "POST",
         data: {
           user_input: userInput,
-          csrfmiddlewaretoken: "{{ csrf_token }}",
+          csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
         },
         success: function (response) {
           appendMessage("Bot", response.reply, false);
